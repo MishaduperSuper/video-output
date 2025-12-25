@@ -9,6 +9,8 @@ Production-ready Python pipeline that detects a human pose in a video, builds a 
 - `motion_analysis.py` — computes vectors, angles, segment lengths, velocity, and acceleration.
 - `visualizer.py` — draws a skeleton overlay with speed-based coloring.
 - `math_report.py` — writes detailed math reports (TXT + JSON).
+- `downloader.py` — yt-dlp integration for downloading videos (supports browser cookies).
+- `gui_app.py` — simple Tkinter GUI for running the pipeline.
 - `main.py` — CLI entry point orchestrating the pipeline.
 
 ## Install
@@ -18,9 +20,21 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Run
+## Run (CLI)
 ```bash
 python main.py --input path/to/input.mp4 --output output_dir --target-fps 30
+```
+
+### Download via yt-dlp (optional)
+```bash
+python main.py --download-url "https://www.youtube.com/watch?v=..." \
+  --cookies-from-browser chrome \
+  --output output_dir
+```
+
+## Run (GUI)
+```bash
+python main.py --gui
 ```
 
 ## Outputs
