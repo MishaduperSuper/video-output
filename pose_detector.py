@@ -2,27 +2,31 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
-from typing import Dict, Optional
+from typing import Dict
 
-import mediapipe as mp
 import numpy as np
+
+try:
+    from mediapipe import solutions as mp_solutions
+except Exception:  # pragma: no cover - fallback for older mediapipe layouts
+    from mediapipe.python import solutions as mp_solutions  # type: ignore
 
 logger = logging.getLogger(__name__)
 
 POSE_LANDMARKS = {
-    "head": mp.solutions.pose.PoseLandmark.NOSE,
-    "left_shoulder": mp.solutions.pose.PoseLandmark.LEFT_SHOULDER,
-    "right_shoulder": mp.solutions.pose.PoseLandmark.RIGHT_SHOULDER,
-    "left_elbow": mp.solutions.pose.PoseLandmark.LEFT_ELBOW,
-    "right_elbow": mp.solutions.pose.PoseLandmark.RIGHT_ELBOW,
-    "left_wrist": mp.solutions.pose.PoseLandmark.LEFT_WRIST,
-    "right_wrist": mp.solutions.pose.PoseLandmark.RIGHT_WRIST,
-    "left_hip": mp.solutions.pose.PoseLandmark.LEFT_HIP,
-    "right_hip": mp.solutions.pose.PoseLandmark.RIGHT_HIP,
-    "left_knee": mp.solutions.pose.PoseLandmark.LEFT_KNEE,
-    "right_knee": mp.solutions.pose.PoseLandmark.RIGHT_KNEE,
-    "left_ankle": mp.solutions.pose.PoseLandmark.LEFT_ANKLE,
-    "right_ankle": mp.solutions.pose.PoseLandmark.RIGHT_ANKLE,
+    "head": mp_solutions.pose.PoseLandmark.NOSE,
+    "left_shoulder": mp_solutions.pose.PoseLandmark.LEFT_SHOULDER,
+    "right_shoulder": mp_solutions.pose.PoseLandmark.RIGHT_SHOULDER,
+    "left_elbow": mp_solutions.pose.PoseLandmark.LEFT_ELBOW,
+    "right_elbow": mp_solutions.pose.PoseLandmark.RIGHT_ELBOW,
+    "left_wrist": mp_solutions.pose.PoseLandmark.LEFT_WRIST,
+    "right_wrist": mp_solutions.pose.PoseLandmark.RIGHT_WRIST,
+    "left_hip": mp_solutions.pose.PoseLandmark.LEFT_HIP,
+    "right_hip": mp_solutions.pose.PoseLandmark.RIGHT_HIP,
+    "left_knee": mp_solutions.pose.PoseLandmark.LEFT_KNEE,
+    "right_knee": mp_solutions.pose.PoseLandmark.RIGHT_KNEE,
+    "left_ankle": mp_solutions.pose.PoseLandmark.LEFT_ANKLE,
+    "right_ankle": mp_solutions.pose.PoseLandmark.RIGHT_ANKLE,
 }
 
 
@@ -39,7 +43,7 @@ class PoseDetector:
     """MediaPipe Pose wrapper for extracting keypoints."""
 
     def __init__(self) -> None:
-        self._pose = mp.solutions.pose.Pose(
+        self._pose = mp_solutions.pose.Pose(
             static_image_mode=False,
             model_complexity=2,
             enable_segmentation=False,
