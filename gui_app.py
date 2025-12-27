@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import threading
 from pathlib import Path
-from tkinter import BOTH, END, LEFT, RIGHT, Button, Entry, Frame, Label, StringVar, Text, Tk, filedialog, ttk
+from tkinter import BOTH, END, Button, Entry, Frame, Label, StringVar, Text, Tk, filedialog
 
 from downloader import download_video
 from main import run_pipeline
@@ -74,7 +74,7 @@ def launch_gui() -> None:
 
     Label(main_frame, text="Cookies from browser").grid(row=2, column=0, sticky="w")
     Entry(main_frame, textvariable=cookies_var, width=60).grid(row=2, column=1, padx=5)
-    Label(main_frame, text="e.g. chrome, firefox, edge").grid(row=2, column=2, sticky="w")
+    Label(main_frame, text="e.g. chrome or chrome:Profile 1").grid(row=2, column=2, sticky="w")
 
     Label(main_frame, text="Output directory").grid(row=3, column=0, sticky="w")
     Entry(main_frame, textvariable=output_dir_var, width=60).grid(row=3, column=1, padx=5)

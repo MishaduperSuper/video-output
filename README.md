@@ -28,9 +28,12 @@ python main.py --input path/to/input.mp4 --output output_dir --target-fps 30
 ### Download via yt-dlp (optional)
 ```bash
 python main.py --download-url "https://www.youtube.com/watch?v=..." \
-  --cookies-from-browser chrome \
+  --cookies-from-browser "chrome:Profile 1" \
   --output output_dir
 ```
+
+> Cookie format supports `browser` or `browser:profile`. If you prefer commas:
+> `chrome,Profile 1` is also accepted (max 4 fields).
 
 ## Run (GUI)
 ```bash
