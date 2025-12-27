@@ -1,17 +1,28 @@
 from __future__ import annotations
 
+import importlib
 import logging
 from dataclasses import dataclass
 from typing import Dict
 
 import numpy as np
-
-try:
-    from mediapipe import solutions as mp_solutions
-except Exception:  # pragma: no cover - fallback for older mediapipe layouts
-    from mediapipe.python import solutions as mp_solutions  # type: ignore
+import mediapipe as mp
 
 logger = logging.getLogger(__name__)
+
+
+def _load_mediapipe_solutions():
+    if hasattr(mp, "solutions"):
+        return mp.solutions
+    for module_name in ("mediapipe.solutions", "mediapipe.python.solutions"):
+        try:
+            return importlib.import_module(module_name)
+        except ModuleNotFoundError:
+            continue
+    raise ImportError("Unable to import mediapipe solutions module")
+
+
+mp_solutions = _load_mediapipe_solutions()
 
 POSE_LANDMARKS = {
     "head": mp_solutions.pose.PoseLandmark.NOSE,
